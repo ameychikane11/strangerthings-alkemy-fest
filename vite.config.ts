@@ -19,10 +19,13 @@ export default defineConfig({
   server: {
     proxy: {
         '/api': {
-            target: 'http://localhost:80',
+            target: process.env.VITE_API_URL || 'http://localhost:80',
             changeOrigin: true,
             secure: false,
         }
     }
+  },
+  define: {
+    'process.env.VITE_API_URL': JSON.stringify(process.env.VITE_API_URL || 'http://localhost:80')
   }
 })

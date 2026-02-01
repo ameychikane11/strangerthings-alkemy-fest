@@ -1,10 +1,11 @@
 services:
+  # Backend API Service (PHP with Docker)
   - type: web
     name: strangerthings-api
-    runtime: php
+    runtime: docker
     plan: free
-    buildCommand: "echo 'No build needed for PHP'"
-    startCommand: "php -S 0.0.0.0:10000 -t public/"
+    dockerContext: .
+    dockerfilePath: ./Dockerfile
     healthCheckPath: /api/events/read.php
     envVars:
       - key: DB_HOST
@@ -17,7 +18,16 @@ services:
         value: ""
       - key: DB_PORT
         value: 5432
-    disk:
-      name: strangerthings-disk
-      mountPath: /var/www/html
-      sizeGB: 1
+
+  # Frontend Service (React)
+  - type: web
+    name: strangerthings-frontend
+    runtime: node
+    plan: free
+    buildCommand: "npm run build"
+    startCommand: "npm run preview"
+    healthCheckPath: /
+    envVars:
+      - key: VITE_API_URL
+        value: https://strangerthings-api.onrender.com
+    staticPublishPath: dist

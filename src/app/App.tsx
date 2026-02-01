@@ -5,7 +5,7 @@ import { EventsPage } from './pages/EventsPage';
 import { DashboardPage } from './pages/DashboardPage';
 import { LoginPage } from './pages/LoginPage';
 import { AboutPage } from './pages/AboutPage';
-import { SponsorsPage } from './pages/SponsorsPage';
+import SponsorsPage from './pages/SponsorsPage';
 import { ContactPage } from './pages/ContactPage';
 import { AuthProvider } from './context/AuthContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
